@@ -1,5 +1,6 @@
 {
-    "plugins": ["react", "react-native"],
+
+    "plugins": ["react", "react-native","babel"],
     "settings": {
       "react": {
         "version": "detect"
@@ -15,3 +16,4 @@
       "react/react-in-jsx-scope": "off"
     }
   }
+ 
