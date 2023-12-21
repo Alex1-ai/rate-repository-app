@@ -1,18 +1,37 @@
+// import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
+// if (__DEV__) {  // Adds messages only in a dev environment
+//   loadDevMessages();
+//   loadErrorMessages();
+// }
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Greet from './src/Greet';
+// import { StyleSheet, Text, View } from 'react-native';
+import { ApolloProvider } from '@apollo/client';
 import Main from './src/Main';
-import FlexboxExample from './src/FlexBoxExample';
+import createApolloClient from './src/utils/apolloClient';
+
 import { NativeRouter } from 'react-router-native';
+import Constants from 'expo-constants'
+import AuthStorage from './src/utils/authStorage';
+import AuthStorageContext from './src/context/AuthStorageContext';
+
+
+const authStorage = new AuthStorage();
+const apolloClient = createApolloClient(authStorage)
 
 export default function App() {
+  console.log(Constants.manifest.extra.env)
   return (
     <>
       <NativeRouter>
-       <Main />
+        <ApolloProvider client={apolloClient}>
+            <AuthStorageContext.Provider value={authStorage}>  
+              <Main />
+            </AuthStorageContext.Provider>
+        </ApolloProvider>
+       
        </NativeRouter>
-       <StatusBar style='auto' />
+       {/* <StatusBar style='auto' /> */}
     </>
   
  

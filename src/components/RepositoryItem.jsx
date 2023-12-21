@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         padding: 15,
         display: 'flex',
         backgroundColor:'white',
-        height: 180,
+        height: 199,
         
     },
     fristSection:{

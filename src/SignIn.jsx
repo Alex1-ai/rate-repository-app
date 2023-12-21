@@ -2,7 +2,11 @@ import React from 'react'
 import { Text, TextInput, Pressable, View } from 'react-native'
 import { Formik, useField } from 'formik'
 import SignInForm from './components/SignInForm'
+
+
 import * as yup from 'yup';
+import useSignIn from './hooks/useSignIn';
+import { useNavigate } from 'react-router-native';
 const initialValues = {
     username: '',
     password: ''
@@ -46,15 +50,24 @@ const validationSchema = yup.object().shape({
 
 
 const SignIn = () => {
-    const onSubmit = values=>{
+    const [ signIn ] = useSignIn()
+    const navigate = useNavigate()
+    const onSubmit = async(values)=>{
         const { username, password } = values;
-
-        if (!(username === '') && !(password === '')){
-            console.log(values)
-
-        }else{
-            console.log("NO input ")
+        
+        try{
+          await signIn({username, password})
+          // console.log(data)
+          navigate('/')
+        }catch(e){
+          console.log("error" ,e)
         }
+        // if (!(username === '') && !(password === '')){
+        //     console.log(values)
+
+        // }else{
+        //     console.log("NO input ")
+        // }
         
     }
   return (
